@@ -41,6 +41,8 @@ Joystick geometry and drag response were measured on this phone. Initial holds p
 
 ## Dataset and detector
 
+The [three-class detector trained from 1,988 reviewed images](weights/starfall-detector-1988/README.md) is included in Git, with its checkpoint, portable metadata, checksum and evaluation comparison. It detects player, meteor and pickup. This is a detector candidate; the trained weights do not establish autonomous gameplay improvement.
+
 Real frames are under `data/game/images`, their capture provenance is in `manifest.jsonl`, and manually reviewed YOLO boxes go under `data/game/labels`. Observed appearance labels currently include player, orange/blue/purple meteor, and Starshot Split; these are a starting set, not an exhaustive inventory of mechanics.
 
 ```powershell

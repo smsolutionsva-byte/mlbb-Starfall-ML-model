@@ -9,6 +9,7 @@ data/*
 !data/templates/
 .ruff_cache/
 *.pt
+!weights/starfall-detector-1988/best.pt
 *_openvino_model/
 runs/
 exports/
