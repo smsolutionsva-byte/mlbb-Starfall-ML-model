@@ -26,6 +26,35 @@ validation images by minimizing extra boxes plus missed objects.
 
 ## Use on an image
 
+From the latest project folder, double-click **Test-Trained-Model.cmd** to run
+the checkpoint on the included gameplay fixture and open the annotated image.
+Drag your own screenshot onto that launcher to test a different image. It uses
+NVIDIA CUDA when available, or CPU otherwise. Predictions and coordinates are
+saved as `reports/trained-model-test.png` and `.json`.
+
+For a live phone preview, connect the calibrated phone by USB, authorize USB
+debugging, open Starfall and double-click **Preview-Trained-Model.cmd**. Play
+manually while it displays detections and proposed paths; `q` closes the preview.
+It does not send joystick, Challenge or ultimate taps. The existing controller
+uses the separate player/meteor/pickup role map in
+`configs/phone-detector-1988.yaml`; boss/core and ultimate readings still come
+from the combat reader. Heart scanning is disabled.
+
+This checkpoint recognizes objects. The planner chooses movement and combat
+actions; this is not a trained movement or boss strategy policy. Live gameplay
+validation is still pending, so this observation configuration keeps
+`detector_validated: false`. `Start-Learning.cmd` continues to use the original
+phone configuration until the new detector is checked during actual gameplay.
+
+The `live --model` option loads PPO/DQN movement policies, not YOLO `.pt` files.
+Use the detector configuration for this checkpoint.
+
+For command-line image inference:
+
+```powershell
+.\.venv\Scripts\python.exe -m starfall.cli predict-image frame.jpg
+```
+
 Install the project's learning dependencies, then run this from the repository
 root with your own image path:
 

@@ -14,6 +14,15 @@ def main():
     parser = argparse.ArgumentParser(description="Starfall local visual Android agent")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("doctor")
+    predict = sub.add_parser(
+        "predict-image", help="Save annotated predictions from the trained detector"
+    )
+    predict.add_argument("image")
+    predict.add_argument("--model", default="weights/starfall-detector-1988/best.pt")
+    predict.add_argument("--device", default="auto")
+    predict.add_argument("--confidence", type=float, default=0.35)
+    predict.add_argument("--imgsz", type=int, default=416)
+    predict.add_argument("--output", default="reports/trained-model-test.png")
     capture = sub.add_parser("capture-benchmark")
     capture.add_argument("--seconds", type=float, default=15)
     capture.add_argument("--size", type=int, default=960)
@@ -159,6 +168,22 @@ def main():
         except (OSError, subprocess.SubprocessError) as exc:
             report["adb_error"] = str(exc)
         save_report("reports/environment.json", report)
+    elif args.command == "predict-image":
+        from .prediction import predict_image
+
+        print(
+            json.dumps(
+                predict_image(
+                    args.image,
+                    args.model,
+                    args.device,
+                    args.output,
+                    args.confidence,
+                    args.imgsz,
+                ),
+                indent=2,
+            )
+        )
     elif args.command == "capture-benchmark":
         from .runtime import capture_benchmark
 

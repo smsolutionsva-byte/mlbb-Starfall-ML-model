@@ -2,6 +2,8 @@
 
 This project observes MLBB on a real Android phone through scrcpy and runs perception and decisions locally on the PC. The first milestone is a measured, reviewable prototype. A 100,000-point autonomous run has not been demonstrated.
 
+**Use the published detector:** double-click `Test-Trained-Model.cmd` for an annotated screenshot, or `Preview-Trained-Model.cmd` for live phone observation. See [the model guide](weights/starfall-detector-1988/README.md). The detector recognizes objects; the planner supplies movement/combat decisions. Actual gameplay validation of this checkpoint remains pending.
+
 **New PC / NVIDIA training laptop:** follow [the transfer and setup guide](docs/FRIEND_SETUP.md). `Setup-Training.cmd` installs CUDA training support; `Train-Offline.cmd` runs four synthetic arenas. Code and essential templates are in Git; recordings and checkpoints transfer separately using `tools/export_training_data.py`. The dedicated NVIDIA memory is separate from Intel shared memory.
 
 ## Human-assisted attempts and learning

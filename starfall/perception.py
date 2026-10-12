@@ -95,6 +95,7 @@ def suppress_duplicates(detections):
 class YoloDetector:
     def __init__(self, model, role_map, imgsz=416, confidence=0.35, device="cpu"):
         from ultralytics import YOLO
+        from .training import select_device
 
         if not role_map:
             raise ValueError("Provide a manually validated class-name-to-role map")
@@ -103,7 +104,7 @@ class YoloDetector:
             role_map,
             imgsz,
             confidence,
-            device,
+            select_device(device),
         )
 
     def detect(self, image):
