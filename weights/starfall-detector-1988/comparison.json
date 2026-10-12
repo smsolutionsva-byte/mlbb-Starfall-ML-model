@@ -1,0 +1,113 @@
+{
+  "frames": 167,
+  "capture_groups": 2,
+  "baseline_reviewed_frames": 728,
+  "candidate_reviewed_frames": 1988,
+  "comparison_settings": "Suggestion counts use each report's configured confidence cutoff; overlap matching is identical. Confidence calibration uses validation frames only.",
+  "limitations": "Agreement with saved human-reviewed boxes on shared unseen capture groups; this does not measure autonomous gameplay score improvement.",
+  "labeling_provenance": "Shared test labels were human-reviewed after draft suggestions from the 728-image assistant. This may favor the earlier model; fresh manually boxed captures are needed for independent confirmation. The 728-image assistant remains the labeler default because the newer candidate adds boxes and misses at its validation-selected cutoff.",
+  "baseline": {
+    "metrics": {
+      "metrics/precision(B)": 0.9900882653778998,
+      "metrics/recall(B)": 0.9730774843134394,
+      "metrics/mAP50(B)": 0.990727890011053,
+      "metrics/mAP50-95(B)": 0.9277363171232588,
+      "fitness": 0.9277363171232588
+    },
+    "per_class_map50_95": {
+      "player": 0.9686509870475923,
+      "meteor": 0.9149321399406635,
+      "pickup": 0.8996258243815209
+    },
+    "annotation_threshold": {
+      "confidence": 0.2,
+      "matching_iou": 0.5,
+      "overall": {
+        "tp": 873,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "classes": {
+        "player": {
+          "tp": 162,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "meteor": {
+          "tp": 623,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "pickup": {
+          "tp": 88,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      }
+    }
+  },
+  "candidate": {
+    "metrics": {
+      "metrics/precision(B)": 0.9848455715441239,
+      "metrics/recall(B)": 0.977675156546698,
+      "metrics/mAP50(B)": 0.9936595056511669,
+      "metrics/mAP50-95(B)": 0.9393874215286888,
+      "fitness": 0.9393874215286888
+    },
+    "per_class_map50_95": {
+      "player": 0.9778106597388192,
+      "meteor": 0.9295075981462991,
+      "pickup": 0.910844006700948
+    },
+    "annotation_threshold": {
+      "confidence": 0.35,
+      "matching_iou": 0.5,
+      "overall": {
+        "tp": 859,
+        "fp": 10,
+        "fn": 14,
+        "precision": 0.9884925201380897,
+        "recall": 0.983963344788087,
+        "f1": 0.9862227324913893
+      },
+      "classes": {
+        "player": {
+          "tp": 162,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.9759036144578314,
+          "recall": 1.0,
+          "f1": 0.9878048780487805
+        },
+        "meteor": {
+          "tp": 613,
+          "fp": 5,
+          "fn": 10,
+          "precision": 0.9919093851132686,
+          "recall": 0.9839486356340289,
+          "f1": 0.9879129734085415
+        },
+        "pickup": {
+          "tp": 84,
+          "fp": 1,
+          "fn": 4,
+          "precision": 0.9882352941176471,
+          "recall": 0.9545454545454546,
+          "f1": 0.9710982658959537
+        }
+      }
+    }
+  }
+}

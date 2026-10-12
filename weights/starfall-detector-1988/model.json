@@ -1,0 +1,93 @@
+{
+  "scope": "human_reviewed_three_class_candidate",
+  "classes": [
+    "player",
+    "meteor",
+    "pickup"
+  ],
+  "roles": {
+    "player": {
+      "kind": "player",
+      "label": "player",
+      "radius_factor": 0.3
+    },
+    "meteor": {
+      "kind": "hazard",
+      "label": "meteor",
+      "radius_factor": 0.5
+    },
+    "pickup": {
+      "kind": "item",
+      "label": "pickup",
+      "radius_factor": 0.5
+    }
+  },
+  "imgsz": 416,
+  "suggestion_confidence": 0.35,
+  "checkpoint": "weights/starfall-detector-1988/best.pt",
+  "sha256": "3e1243c73725b69561b7595722d6cca7f83be35301bbf02d22131aa7f95c852d",
+  "size_bytes": 5414085,
+  "packaged_at_utc": "2026-10-12T16:20:59.698051+00:00",
+  "framework": {
+    "ultralytics": "8.4.175",
+    "torch": "2.11.0+cu128",
+    "python": "3.12.10"
+  },
+  "review": {
+    "frames": 1988,
+    "sessions": 23,
+    "classes": [
+      "player",
+      "meteor",
+      "pickup"
+    ],
+    "boxes_per_class": {
+      "player": 1783,
+      "meteor": 10821,
+      "pickup": 684
+    },
+    "reviewed_negatives": 64,
+    "valid": true
+  },
+  "split_frames": {
+    "train": 1557,
+    "val": 228,
+    "test": 203
+  },
+  "initial_model": "728-image three-class annotation assistant",
+  "training_settings": {
+    "maximum_epochs": 40,
+    "batch": 16,
+    "lr0": 0.0003,
+    "completed_epochs": 12,
+    "best_validation_epoch": 2,
+    "elapsed_seconds": 410.494
+  },
+  "metrics": {
+    "metrics/precision(B)": 0.9859171613993508,
+    "metrics/recall(B)": 0.9734807359232763,
+    "metrics/mAP50(B)": 0.9931130281081032,
+    "metrics/mAP50-95(B)": 0.9285148097498424,
+    "fitness": 0.9285148097498424
+  },
+  "per_class_map": [
+    0.9614286679306027,
+    0.9195588666806458,
+    0.9045568946382783
+  ],
+  "evaluated_class_indices": [
+    0,
+    1,
+    2
+  ],
+  "deployed": false,
+  "annotation_assistant_active": false,
+  "limitations": "Human-reviewed capture dataset with approximate visual boxes. Generic pickup labels do not identify upgrade effects. Actual collision hitboxes and autonomous score improvement remain unvalidated.",
+  "evaluation_notes": "Shared test labels were human-reviewed after draft suggestions from the 728-image assistant. This may favor the earlier model; fresh manually boxed captures are needed for independent confirmation. The 728-image assistant remains the labeler default because the newer candidate adds boxes and misses at its validation-selected cutoff.",
+  "comparison_report": "weights/starfall-detector-1988/comparison.json",
+  "confidence_calibration": {
+    "split": "val",
+    "frames": 228,
+    "criterion": "Minimum false boxes plus missed objects; ties prefer fewer misses, then lower confidence"
+  }
+}
