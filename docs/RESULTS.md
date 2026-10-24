@@ -1,8 +1,15 @@
-# Recorded result and demonstration
+# Private model benchmark
 
-## Maintainer-reported score
+## Maintainer-reported private model result
 
-The maintainer supplied a screenshot showing **282,793 points** and **rank #1 in the displayed weekly ranking list**. The same screenshot repeats the maintainer's row at the bottom. Both username labels are redacted in the public copy; the score and ranking remain visible. This is evidence of the result displayed on that screen, rather than an independently verified global ranking.
+The maintainer reports that their **private, unreleased model and movement/control setup achieved 282,793 points** in Starfall Breakout. The score is published as a benchmark to demonstrate what was possible with that private setup and give future ML experiments a reference point.
+
+The supplied screenshot shows **282,793 points** and **rank #1 in the displayed weekly ranking list**. Both appearances of the maintainer's username are redacted; the ranking and score remain visible.
+
+| Model / setup | Release status | Game-score benchmark |
+| --- | --- | --- |
+| Earlier YOLO26n detector trained from 1,988 reviewed images | Public; available before the benchmark update | Public perception model; no separate game-score result assigned |
+| Private model and movement/control setup | Unreleased | **282,793 points**, maintainer-reported run |
 
 ![Ranking screenshot with both username labels redacted](media/weekly-rank-282793-redacted.png)
 
@@ -12,7 +19,7 @@ The associated phone recording ends on a Starfall page showing **282793 Highest 
 
 [Download the MP4](https://github.com/smsolutionsva-byte/mlbb-Starfall-ML-model/releases/download/demo-2026-10-24/starfall-282793-preview.mp4) or visit the [demo release](https://github.com/smsolutionsva-byte/mlbb-Starfall-ML-model/releases/tag/demo-2026-10-24).
 
-The public three-class detector and experimental planner were run over a previously recorded phone video. Square boxes identify the player, meteors, and pickups; yellow lines show suggested paths. These overlays were added **after capture**. They do not show that the public checkpoint generated the actions in the recording, nor do they establish an independently reproducible autonomous score.
+The recording is shared alongside the private model's reported benchmark. A visualization layer was added **after capture** using the earlier public detector and experimental planner: square boxes identify the player, meteors, and pickups, and yellow lines show preview suggestions. The visualization pipeline and the private model that controlled the reported run are separate components.
 
 | Media property | Checked result |
 | --- | --- |
@@ -32,7 +39,7 @@ Observation counts measure pipeline activity, not labelled precision/recall. Det
 
 ## Private artifacts and public baseline
 
-The maintainer states that additional movement/control work and another model exist privately and will not be uploaded, to respect game guidelines and discourage automated farming. The repository already includes experimental baseline movement, planning, and synthetic-training code; that existing code is distinct from the additional private artifacts. The public detector alone cannot reproduce a private controller's behavior.
+The model and movement/control setup credited with the benchmark remain private. The maintainer is sharing the result to show what is possible, while withholding the additional artifacts to respect game guidelines and discourage automated farming. The earlier public detector and existing experimental tracking, planning, and synthetic-training utilities remain available as a foundation for further ML research.
 
 Use the public components for recording analysis, labelled-data experiments, further detector training, tracking research, and offline evaluation. Read MLBB's [Terms of Service](https://www.mobilelegends.com/news/articleldetail?newsid=2728920) before interacting with its services. This project is not affiliated with or endorsed by Moonton.
 

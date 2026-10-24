@@ -1,8 +1,8 @@
 # Evidence recorded on this PC
 
-## Published gameplay demonstration — 24 October 2026
+## Private model benchmark — 24 October 2026
 
-The maintainer supplied a 282,793-point ranking screenshot and phone recording. The [current results page](../docs/RESULTS.md) includes the redacted screenshot and the annotated video release. The recording's overlays were computed afterward, with no phone input. They demonstrate perception on recorded gameplay; the media alone does not verify autonomous control. Additional movement/control artifacts are described by the maintainer as private. The measurements below are historical results from the particular experiments listed, rather than evaluations of those private artifacts.
+The maintainer reports that their private, unreleased model and movement/control setup achieved **282,793 points**. The [benchmark page](../docs/RESULTS.md) includes the redacted ranking screenshot and video release, shared to demonstrate what was possible with that setup. The earlier public detector and planner supplied the visualization layer added after capture. The benchmark model and additional movement/control artifacts remain private. The older measurements below describe the specific historical experiments listed.
 
 The full research rationale and primary sources are in `docs/RESEARCH.md`. Measurements below are project-specific and have limited sample coverage.
 

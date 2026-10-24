@@ -2,28 +2,28 @@
 
 A Starfall Breakout research project with a trained object detector, tracking and planning experiments, offline training tools, and recorded-gameplay previews.
 
-## Recorded result: 282,793 points
+## Private model benchmark: 282,793 points
 
-The maintainer reports a **282,793-point result**. The screenshot below shows **rank #1 in the displayed weekly ranking list**, and the end of the accompanying recording shows the same highest-points total. This describes the list shown in the screenshot; it is not a claim of global rank #1.
+The **private, unreleased model and movement/control setup achieved 282,793 points**, according to the maintainer. This benchmark is shared to show what was possible with that private setup and provide a reference point for future ML experiments. The screenshot shows **rank #1 in the displayed weekly ranking list**, and the recording ends on the same highest-points total.
 
 ![Weekly ranking showing first place and 282,793 points; both username labels redacted](docs/media/weekly-rank-282793-redacted.png)
 
 [![Gameplay with the published detector's square-box overlay](docs/media/gameplay-preview.jpg)](https://github.com/smsolutionsva-byte/mlbb-Starfall-ML-model/releases/download/demo-2026-10-24/starfall-282793-preview.mp4)
 
-**[Watch / download the full 61-second preview](https://github.com/smsolutionsva-byte/mlbb-Starfall-ML-model/releases/download/demo-2026-10-24/starfall-282793-preview.mp4)** · [Demo release and checksums](https://github.com/smsolutionsva-byte/mlbb-Starfall-ML-model/releases/tag/demo-2026-10-24) · [Evidence and limitations](docs/RESULTS.md)
+**[Watch / download the 61-second benchmark clip](https://github.com/smsolutionsva-byte/mlbb-Starfall-ML-model/releases/download/demo-2026-10-24/starfall-282793-preview.mp4)** · [Benchmark release and checksums](https://github.com/smsolutionsva-byte/mlbb-Starfall-ML-model/releases/tag/demo-2026-10-24) · [Benchmark details](docs/RESULTS.md)
 
-The video is a phone recording with detection boxes and suggested paths added afterward. It documents the recorded gameplay and the public perception pipeline; the overlay itself does not establish who controlled each action or independently reproduce the score. The movement/control artifacts described below are separate from the published detector.
+**Public model:** the earlier YOLO26n object detector published before this benchmark update. It remains available as a base for further training and research. **Benchmark model:** the private, unreleased model and movement/control setup used for the reported 282,793-point run. For readability, the shared recording has a visualization layer added afterward using the public detector and planner preview.
 
 ## What is public and what stays private
 
 | Component | Availability |
 | --- | --- |
-| YOLO26n detector trained from 1,988 reviewed images | Included: player, meteor, and pickup classes |
+| Earlier public YOLO26n detector trained from 1,988 reviewed images | Included: player, meteor, and pickup classes; published before this benchmark update |
 | Image testing, manual live observation, and recorded-video preview | Included, with CPU/OpenVINO support |
 | Experimental baseline tracking, planning, movement-response code, and synthetic training utilities | Already present in this repository; experimental research components |
-| Additional movement/control work and another model described by the maintainer | Private; their additional trained artifacts are not included in this release |
+| Private, unreleased model and movement/control setup | Used for the maintainer-reported 282,793-point benchmark; additional trained artifacts remain private |
 
-**Maintainer's note:** I also have movement/control work and another model that I am keeping private. I am not publishing those additional artifacts because I want to respect MLBB's guidelines and avoid turning this project into a ready-made tool for automated farming. Use the public detector and research code as a base for your own ML experiments: improve the dataset, train further, evaluate on fresh recordings, or study tracking and decision-making in an offline environment.
+**Maintainer's note:** The 282,793-point run was achieved using my private, unreleased model and movement/control setup. I am sharing the score, recording, and redacted ranking as a benchmark to show what is possible. I am keeping the additional model and movement/control artifacts private to respect MLBB's guidelines and discourage automated farming. Use the earlier public model and research code as a base for your own ML experiments: improve the dataset, train further, evaluate on fresh recordings, or study tracking and decision-making offline.
 
 MLBB's [Terms of Service](https://www.mobilelegends.com/news/articleldetail?newsid=2728920) restrict automated interaction and bots. The intended public use here is recording analysis and offline ML research. This project is not affiliated with or endorsed by Moonton.
 
@@ -54,7 +54,7 @@ The synthetic arena supports PPO/DQN and multiple parallel environments. It is a
 
 - [Training-laptop setup and offline experiments](docs/FRIEND_SETUP.md)
 - [Research rationale and references](docs/RESEARCH.md)
-- [Recorded results and demo provenance](docs/RESULTS.md)
+- [Private model benchmark and media provenance](docs/RESULTS.md)
 - [Earlier measurements and experiment history](reports/EVIDENCE.md)
 
 ## Verification

@@ -10,7 +10,7 @@ results. `SHA256SUMS` verifies the checkpoint bytes.
 
 ## Public scope and recorded demonstration
 
-The [282,793-point demonstration](../../docs/RESULTS.md) pairs a maintainer-supplied ranking screenshot with recorded gameplay. Its detection boxes and suggested paths were added after capture. This checkpoint supplies object detections; it does not establish that the detector controlled the recorded run. The maintainer's additional movement/control artifacts and another model remain private and are not part of this checkpoint.
+This is the **earlier public detector**, available before the benchmark update. The [282,793-point benchmark](../../docs/RESULTS.md) was achieved using the maintainer's **private, unreleased model and movement/control setup**, according to the maintainer. That result is shared to show what is possible; the additional trained artifacts remain private. The recording's visualization layer was added afterward using this public detector and the experimental planner preview.
 
 The project now includes **Preview-Recorded-Video.cmd** for original phone recordings and **Preview-Trained-Model-CPU.cmd** for manual live observation with OpenVINO. Both use large square boxes and clearer labels. See the [main README](../../README.md) for the public research scope and demo download.
 
