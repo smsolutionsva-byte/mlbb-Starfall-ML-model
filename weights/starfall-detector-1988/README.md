@@ -8,6 +8,12 @@ The checkpoint is stored directly in Git. `model.json` contains portable paths,
 the exact framework versions, training details, class roles and evaluation
 results. `SHA256SUMS` verifies the checkpoint bytes.
 
+## Public scope and recorded demonstration
+
+The [282,793-point demonstration](../../docs/RESULTS.md) pairs a maintainer-supplied ranking screenshot with recorded gameplay. Its detection boxes and suggested paths were added after capture. This checkpoint supplies object detections; it does not establish that the detector controlled the recorded run. The maintainer's additional movement/control artifacts and another model remain private and are not part of this checkpoint.
+
+The project now includes **Preview-Recorded-Video.cmd** for original phone recordings and **Preview-Trained-Model-CPU.cmd** for manual live observation with OpenVINO. Both use large square boxes and clearer labels. See the [main README](../../README.md) for the public research scope and demo download.
+
 ## Training
 
 | Setting | Value |
@@ -43,8 +49,9 @@ from the combat reader. Heart scanning is disabled.
 This checkpoint recognizes objects. The planner chooses movement and combat
 actions; this is not a trained movement or boss strategy policy. Live gameplay
 validation is still pending, so this observation configuration keeps
-`detector_validated: false`. `Start-Learning.cmd` continues to use the original
-phone configuration until the new detector is checked during actual gameplay.
+`detector_validated: false`. Existing baseline controller utilities are separate
+from the maintainer's additional private models; this public checkpoint is
+documented for observation and further ML research.
 
 The `live --model` option loads PPO/DQN movement policies, not YOLO `.pt` files.
 Use the detector configuration for this checkpoint.

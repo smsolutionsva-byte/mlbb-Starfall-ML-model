@@ -1,4 +1,5 @@
 import cv2
+import pytest
 from pathlib import Path
 from starfall.session import EpisodeLoop, PageReader, PageReading
 from starfall.runtime import load_config
@@ -74,6 +75,76 @@ def test_pause_suspends_controls_without_inferring_a_death_or_new_attempt():
     assert loop.update(PageReading("paused"), 10) == (False, False, [])
     assert loop.update(PageReading("gameplay"), 11) == (True, False, [])
     assert loop.episode == 1
+
+
+def test_candidate_preview_recognizes_gameplay_without_return_label():
+    reader = PageReader(load_config("configs/phone-detector-1988.yaml")["session"])
+    for name in ("gameplay.png", "gameplay-no-return.png"):
+        assert reader.read(cv2.imread(str(FIXTURES / name))).page == "gameplay"
+    for name in ("paused.jpg", "paused-no-return.png"):
+        assert reader.read(cv2.imread(str(FIXTURES / name))).page == "paused"
+    for name in ("ready.png", "ready-with-return.png"):
+        assert reader.read(cv2.imread(str(FIXTURES / name))).page == "ready"
+    for path in (FIXTURES / "lobby").glob("*.png"):
+        assert reader.read(cv2.imread(str(path))).page == "main_lobby"
+    assert reader.read(cv2.imread(str(FIXTURES / "transition.jpg"))).page != "gameplay"
+
+
+@pytest.mark.parametrize(
+    "frame_name, expected_page, preview",
+    [
+        ("gameplay-no-return.png", "gameplay", False),
+        ("gameplay-hud-occluded.png", "unknown", True),
+    ],
+)
+def test_preview_logs_numpy_detection_radii(
+    monkeypatch, tmp_path, frame_name, expected_page, preview
+):
+    import json
+    import time
+    import numpy as np
+    from starfall import runtime
+    from starfall.android import Frame
+    from starfall.logging import RunLog
+    from starfall.types import Detection
+
+    image = cv2.imread(str(FIXTURES / frame_name))
+
+    class Detector:
+        def detect(self, _):
+            return [Detection("player", np.array([0.25, 0.25]), np.float32(0.03))]
+
+    class Stream:
+        width, height = 960, 430
+        latest = None
+        count = 0
+        closed = False
+
+        def get_frame(self, after=0, timeout=1):
+            if self.count == 2:
+                raise KeyboardInterrupt
+            self.count += 1
+            now = time.perf_counter_ns()
+            return Frame(image, self.count, self.count * 17000, now, now)
+
+        def close(self):
+            self.closed = True
+
+    monkeypatch.setattr(runtime, "create_detector", lambda _: Detector())
+    monkeypatch.setattr(runtime.cv2, "imshow", lambda *_: None)
+    monkeypatch.setattr(runtime.cv2, "waitKey", lambda _: -1)
+    monkeypatch.setattr(
+        runtime, "RunLog", lambda *a, **kw: RunLog(*a, **kw, root=tmp_path)
+    )
+    stream = Stream()
+    path, report = runtime.run_live(
+        "configs/phone-detector-1988.yaml", preview=preview, provided_stream=stream
+    )
+    rows = [json.loads(line) for line in (path / "events.jsonl").read_text().splitlines()]
+    assert stream.closed and report["processed_frames"] == 2
+    assert all(row["page"] == expected_page and row["tracks"] for row in rows)
+    assert all(isinstance(row["tracks"][0]["radius"], float) for row in rows)
+    assert all(not row["gesture_sent"] and not row["control_enabled"] for row in rows)
 
 
 def test_control_loop_restarts_without_hearts_or_lobby_exit_taps(monkeypatch, tmp_path):

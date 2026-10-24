@@ -13,15 +13,17 @@ The current PC's `requirements-lock.txt` records a CPU environment. **Do not use
 
 ## Import recorded training data
 
-Recordings and model weights are deliberately outside Git. On the collecting PC, run:
+The published three-class detector trained from 1,988 reviewed images is included in Git. Full datasets, recordings, and additional private movement/control models are not. A demonstration video is available separately in the [demo release](https://github.com/smsolutionsva-byte/mlbb-Starfall-ML-model/releases/tag/demo-2026-10-24).
+
+For a private transfer of your own collected training data, run this on the collecting PC:
 
 ```powershell
 .\.venv\Scripts\python.exe tools\export_training_data.py
 ```
 
-Transfer the generated `exports/starfall-training-data-*.zip` privately and extract its contents **into the repository folder** on the training laptop. It contains captured frames, labels, reviewed player splits, movement logs, and current detector/response candidates. Dataset paths in the archive are portable. Its manifest lists each file and SHA256; the archive checksum sits next to the ZIP. This command does not publish or upload anything. Stop phone control while making a fresh export if it is actively recording.
+Transfer the generated `exports/starfall-training-data-*.zip` privately and extract its contents **into the repository folder** on the training laptop. It contains captured frames, labels, reviewed player splits, movement logs, and current detector/response candidates. Dataset paths in the archive are portable. Its manifest lists each file and SHA256; the archive checksum sits next to the ZIP. This command does not publish or upload anything. Keep the archive private: it may contain unpublished movement/control artifacts, and it must not be attached to a public issue or release. Stop phone control while making a fresh export if it is actively recording.
 
-The current reviewed player dataset has **31 selected positive frames: 7 train / 12 validation / 12 test**, grouped by actual attempt. It is an experimental subset. Raw game frames have many unfinished labels; they are not ready for full meteor/orb training. Importing existing models does not automatically enable them in the live controller.
+The earlier player-only prototype dataset had **31 selected positive frames: 7 train / 12 validation / 12 test**, grouped by actual attempt. This historical subset is separate from the included 1,988-image detector; see its [model card](../weights/starfall-detector-1988/README.md). It is an experimental subset. Raw game frames have many unfinished labels; they are not ready for full meteor/orb training. Importing existing models does not automatically enable them in the live controller.
 
 ## GPU detector training
 
@@ -52,11 +54,15 @@ Double-click **Train-Offline.cmd** to train PPO in **four separate synthetic are
 
 **This is an engineering sandbox, not an offline copy of MLBB.** Full shooting/damage, boss phases, orbs and ultimate mechanics are not yet represented faithfully. Synthetic rewards are not real game points. More training in this sandbox does not establish stronger real gameplay. Candidates still require paired held-out simulation checks and actual phone evaluation.
 
-## Connect the phone and play
+## Observe a recording or phone
 
-Connect the same calibrated Android phone by USB, enable USB debugging, authorize the laptop, and open Starfall's ready page. Double-click **Start-Learning.cmd**. You handle low health, Return to Lobby and reopening Starfall; heart scanning stays disabled. The controller starts once per confirmed ready screen, collects gameplay and fits movement response between attempts. Use **Stop-Learning.cmd** or `q` in the preview to stop.
+Drag an original gameplay MP4 onto **Preview-Recorded-Video.cmd**. It prepares an OpenVINO export locally if needed, shows square detection boxes and suggested paths, and saves an annotated video with its original audio under `reports/`. A phone is not needed for recorded playback. This is analysis, not training or game control.
 
-Current coordinates/templates are for this phone at **960 × 430** capture resolution. Using a different phone or UI size requires recalibration. There is only one live controller per phone. A faster laptop improves computation, while phone attempts still proceed at normal game speed.
+For manual live observation, connect the calibrated Android phone by USB, enable USB debugging, authorize the laptop, and open Starfall. Use **Preview-Trained-Model.cmd** on the NVIDIA laptop or **Preview-Trained-Model-CPU.cmd** on a CPU-only PC. You play manually; **q** closes the preview. These observation launchers do not send joystick, Challenge, or ultimate taps.
+
+Current phone coordinates/templates were calibrated at **960 × 430**. Another device or UI size needs recalibration for reliable game-page/combat readings. Recorded playback scales the analysis to that reference while retaining the recording's original output resolution and timing.
+
+The repository retains experimental baseline controller utilities. The maintainer's additional movement/control work and another model remain private, as explained in the [public-scope note](../README.md#what-is-public-and-what-stays-private). This guide focuses on recording analysis, detector training, and synthetic experiments.
 
 ## Verify installation
 

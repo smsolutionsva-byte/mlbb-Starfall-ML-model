@@ -16,6 +16,12 @@ class PageReader:
         self.title = load_template(config["ready_template"])
         self.challenge = load_template(config["challenge_template"])
         self.game = load_template(config["game_template"])
+        self.game_roi = tuple(
+            config.get(
+                "game_template_roi",
+                (self.reference[0] // 3, 0, self.reference[0] * 2 // 3, 50),
+            )
+        )
         self.points = load_template(config["points_template"])
         self.paused = load_template(config["paused_template"])
         self.main = load_template(config["main_lobby_template"])
@@ -39,9 +45,9 @@ class PageReader:
             return PageReading("ready_unavailable")
         if find_template(image, self.main, (w // 5, h * 2 // 3, w * 3 // 5, h), 0.85):
             return PageReading("main_lobby")
-        if find_template(
-            image, self.game, (w // 3, 0, w * 2 // 3, 50), 0.78
-        ) and find_template(image, self.points, (w * 2 // 3, 10, w, 75), 0.80):
+        if find_template(image, self.game, self.game_roi, 0.78) and find_template(
+            image, self.points, (w * 2 // 3, 10, w, 75), 0.80
+        ):
             return PageReading("gameplay")
         return PageReading("unknown")
 

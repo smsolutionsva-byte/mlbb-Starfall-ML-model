@@ -19,3 +19,12 @@ docs/scrcpy-v5.0.1/
 .env
 .env.*
 *.log
+*.mp4
+*.mov
+*.mkv
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+private/
+private_models/

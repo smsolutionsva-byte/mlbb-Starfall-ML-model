@@ -134,6 +134,7 @@ class YoloDetector:
                     role.get("radius_factor", 0.5) * max(x1 - x0, y1 - y0) / scale,
                     float(conf),
                     role.get("label", name),
+                    (float(x1 - x0) / scale, float(y1 - y0) / scale),
                 )
             )
         return suppress_duplicates(detections)

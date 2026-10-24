@@ -16,6 +16,7 @@ from .session import PageReader, PageReading, EpisodeLoop
 from .combat import CombatReader, CombatReading, UltimatePolicy
 from .features import encode
 from .control_lease import ControlLease
+from .preview import draw_preview
 
 
 def load_config(path):
@@ -256,6 +257,13 @@ def run_live(
                 else PageReading("orientation_changed")
             )
             in_game, start_game, page_events = episodes.update(page, time.monotonic())
+            observe_scene = in_game or (
+                preview
+                and not control
+                and not guard
+                and config.get("preview", {}).get("observe_unknown_pages", False)
+                and page.page == "unknown"
+            )
             for event in page_events:
                 if event["type"] == "challenge_tap":
                     attempt_id = f"{log.id}-attempt{episodes.starts}"
@@ -301,7 +309,7 @@ def run_live(
                 if event["type"] == "episode_end":
                     attempt_id = None
                     attempt_verified = False
-            if not in_game:
+            if not observe_scene:
                 if joystick:
                     joystick.release()
                 tracker.reset()
@@ -319,11 +327,12 @@ def run_live(
                 )
             scene = (
                 combat_reader.read(frame.image)
-                if in_game and combat_reader
+                if observe_scene and combat_reader
                 else CombatReading()
             )
             detections = suppress_duplicates(
-                (detector.detect(frame.image) if in_game else []) + scene.detections
+                (detector.detect(frame.image) if observe_scene else [])
+                + scene.detections
             )
             if supervisor:
                 supervisor.check()
@@ -522,7 +531,7 @@ def run_live(
                             "kind": t.kind,
                             "label": t.label,
                             "state": t.state.tolist(),
-                            "radius": t.radius,
+                            "radius": float(t.radius),
                             "last_seen": t.last_seen,
                             "confidence": t.confidence,
                             "covariance": t.covariance.tolist(),
@@ -534,42 +543,13 @@ def run_live(
             if collector and in_game:
                 collector.offer(frame)
             if preview:
-                image = frame.image.copy()
-                scale = max(image.shape[:2])
-                for track in tracks:
-                    point = tuple(np.rint(track.position * scale).astype(int))
-                    cv2.circle(
-                        image,
-                        point,
-                        max(2, int(track.radius * scale)),
-                        (0, 0, 255) if track.kind == "hazard" else (0, 255, 0),
-                        1,
-                    )
-                    cv2.putText(
-                        image,
-                        f"{track.label} #{track.id}",
-                        point,
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        0.35,
-                        (255, 255, 255),
-                        1,
-                    )
-                if decision:
-                    cv2.polylines(
-                        image,
-                        [np.rint(decision.path * scale).astype(np.int32)],
-                        False,
-                        (0, 255, 255),
-                        2,
-                    )
-                cv2.putText(
-                    image,
-                    f"{'CONTROL' if control else 'SHADOW'}  action {action}  age {receive_age * 1000:.0f} ms  q=stop",
-                    (10, 20),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.45,
-                    (255, 255, 255),
-                    1,
+                image = draw_preview(
+                    frame.image,
+                    tracks,
+                    decision,
+                    status=f"{'CONTROL' if control else 'SHADOW'}  action {action}  age {receive_age * 1000:.0f} ms  q=stop",
+                    settings=config.get("preview"),
+                    wall=scene.wall,
                 )
                 cv2.imshow("Starfall agent", image)
                 if cv2.waitKey(1) & 255 == ord("q"):

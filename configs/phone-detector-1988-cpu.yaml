@@ -1,0 +1,169 @@
+capture:
+  max_size: 960
+  fps: 60
+  bitrate: 4000000
+detector:
+  type: openvino
+  model: weights/starfall-detector-1988/best_openvino_model
+  roles:
+    player:
+      kind: player
+      label: player
+      radius_factor: 0.3
+    meteor:
+      kind: hazard
+      label: meteor
+      radius_factor: 0.5
+    pickup:
+      kind: item
+      label: pickup
+      radius_factor: 0.5
+  imgsz: 416
+  confidence: 0.35
+  device: CPU
+bounds:
+- 0.02
+- 0.1
+- 0.98
+- 0.32
+joystick:
+  calibrated: true
+  base:
+  - 100
+  - 350
+  radius: 43
+  frame_size:
+  - 960
+  - 430
+  source: inspected_initial_gameplay_frame
+motion:
+  measured: true
+  kind: drag
+  speed: 0.2035984848484849
+  delay: 0.10179685
+  action_period_s: 0.22
+  stroke_duration_s: 0.08
+  stroke_steps: 4
+  stroke_displacement: 0.044791666666666674
+  displacement_samples:
+  - 0.044791666666666674
+  - 0.044791666666666674
+  - 0.017708333333333326
+  - 0.044791666666666674
+  source: real_phone_visual_drag_calibration
+  model_limitations: Average action speed; individual gesture response and hitboxes
+    remain approximate.
+  unmeasured_actions:
+  - 5
+  - 8
+planner:
+  horizon: 0.6
+  step: 0.05
+  margin: 0.012
+  uncertainty_scale: 1.5
+  item_values:
+    item: 2.5
+    power_orb: 2.5
+    stellar_charge: 3.0
+    starshot_split: 2.5
+    pickup: 2.5
+  shot_lane_weight: 2.0
+  boss_lane_weight: 8.0
+  clearance_weight: 0.25
+  muzzle_offset: 0.015
+  projectile_speed: 1.2
+  action_velocities:
+  - - 0.0
+    - 0.0
+  - - -0.2035984848484849
+    - 0.0
+  - - 0.2035984848484849
+    - 0.0
+  - - 0.0
+    - -0.2035984848484849
+  - - 0.0
+    - 0.08049242424242421
+  - - 0.0
+    - 0.0
+  - - 0.14204545454545456
+    - -0.146780303030303
+  - - -0.1452020202020202
+    - 0.14204545454545456
+  - - 0.0
+    - 0.0
+  allowed_actions:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 6
+  - 7
+classes:
+- player
+- meteor
+- pickup
+detector_validated: false
+preview:
+  observe_unknown_pages: true
+health_guard:
+  enabled: false
+  exit_at_hearts: 1
+  frame_size:
+  - 960
+  - 430
+  heart_template: data/templates/filled_heart.png
+  return_template: data/templates/return_to_lobby.png
+  lobby_template: data/templates/lobby_title.png
+  confirm_template: null
+  heart_threshold: 0.82
+  unknown_timeout_s: 0.35
+  main_lobby_template: data/templates/main_lobby_start.png
+  upper_heart_template: data/templates/filled_heart_upper.png
+detector_validation:
+  scope: live_observation_candidate
+  report: weights/starfall-detector-1988/model.json
+  independent_game_accuracy_validated: false
+  gameplay_pilot_completed: false
+control_limits:
+  max_seconds: 20
+session:
+  learn_response: false
+  frame_size:
+  - 960
+  - 430
+  ready_template: data/templates/lobby_title.png
+  challenge_template: data/templates/challenge_label.png
+  game_template: data/templates/pause_button.png
+  game_template_roi:
+  - 850
+  - 10
+  - 930
+  - 80
+  points_template: data/templates/current_points_label.png
+  paused_template: data/templates/paused_label.png
+  main_lobby_template: data/templates/main_lobby_start.png
+combat:
+  enabled: true
+  frame_size:
+  - 960
+  - 430
+  orb_templates: data/templates/orbs
+  orb_threshold: 0.74
+  core_template: data/templates/boss_core.png
+  core_variants:
+  - data/templates/boss_core_phase2.png
+  - data/templates/boss_core_phase3.png
+  core_threshold: 0.64
+  ultimate_template: data/templates/ultimate_glyph.png
+  charge_templates:
+  - data/templates/ultimate_charge0.png
+  - data/templates/ultimate_charge1.png
+  - data/templates/ultimate_charge2.png
+  button:
+  - 863
+  - 348
+  ultimate_enabled: true
+  validation_scope: recorded_frame_screening_and_first_live_trial
+  physics_limitations: Projectile speed and muzzle offset are provisional; hitboxes
+    remain approximate.

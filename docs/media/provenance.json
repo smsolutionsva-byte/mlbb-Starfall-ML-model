@@ -1,0 +1,22 @@
+{
+  "ranking_source_width": 1600,
+  "ranking_source_height": 717,
+  "privacy_regions_xywh": [
+    [
+      1165,
+      215,
+      205,
+      43
+    ],
+    [
+      1165,
+      595,
+      205,
+      43
+    ]
+  ],
+  "pixels_changed_outside_privacy_regions": 0,
+  "redacted_screenshot_sha256": "bce62153458ee8eeff57ee5d6837f26bd20311c4bd6af6a6c24d3492e6c4115c",
+  "demo_video_sha256": "79f9e0b719b59e0aa9368132490d719d99cd70531a9a566e3a54c7307a15f261",
+  "redaction_method": "Built-in image editing tool generated name redactions; only the two redacted strips were composited into the original decoded screenshot. All other pixels were checked unchanged."
+}

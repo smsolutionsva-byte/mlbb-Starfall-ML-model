@@ -23,6 +23,16 @@ def main():
     predict.add_argument("--confidence", type=float, default=0.35)
     predict.add_argument("--imgsz", type=int, default=416)
     predict.add_argument("--output", default="reports/trained-model-test.png")
+    replay = sub.add_parser(
+        "preview-video",
+        help="Overlay the trained model on a recording, preserving audio",
+    )
+    replay.add_argument("video")
+    replay.add_argument("--config", default="configs/phone-detector-1988-cpu.yaml")
+    replay.add_argument("--output")
+    replay.add_argument("--detection-fps", type=float, default=15)
+    replay.add_argument("--seconds", type=float, default=0)
+    replay.add_argument("--no-preview", action="store_true")
     capture = sub.add_parser("capture-benchmark")
     capture.add_argument("--seconds", type=float, default=15)
     capture.add_argument("--size", type=int, default=960)
@@ -180,6 +190,22 @@ def main():
                     args.output,
                     args.confidence,
                     args.imgsz,
+                ),
+                indent=2,
+            )
+        )
+    elif args.command == "preview-video":
+        from .replay import preview_video
+
+        print(
+            json.dumps(
+                preview_video(
+                    args.video,
+                    args.config,
+                    args.output,
+                    not args.no_preview,
+                    args.detection_fps,
+                    args.seconds,
                 ),
                 indent=2,
             )

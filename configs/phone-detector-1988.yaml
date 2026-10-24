@@ -104,6 +104,8 @@ classes:
 - meteor
 - pickup
 detector_validated: false
+preview:
+  observe_unknown_pages: true
 health_guard:
   enabled: false
   exit_at_hearts: 1
@@ -132,7 +134,8 @@ session:
   - 430
   ready_template: data/templates/lobby_title.png
   challenge_template: data/templates/challenge_label.png
-  game_template: data/templates/return_to_lobby.png
+  game_template: data/templates/pause_button.png
+  game_template_roi: [850, 10, 930, 80]
   points_template: data/templates/current_points_label.png
   paused_template: data/templates/paused_label.png
   main_lobby_template: data/templates/main_lobby_start.png

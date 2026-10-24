@@ -16,6 +16,7 @@ class Detection:
     radius: float
     confidence: float = 1.0
     label: str = ""
+    box_size: tuple[float, float] | None = None
 
 
 @dataclass
@@ -30,6 +31,7 @@ class Track:
     last_seen: float
     time: float
     hits: int = 1
+    box_size: tuple[float, float] | None = None
 
     @property
     def position(self):

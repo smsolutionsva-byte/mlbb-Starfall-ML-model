@@ -60,6 +60,7 @@ class Tracker:
                 a = np.eye(4) - k @ h
                 t.covariance = a @ t.covariance @ a.T + k @ (np.eye(2) * self.r) @ k.T
                 t.radius, t.confidence, t.label = d.radius, d.confidence, d.label
+                t.box_size = d.box_size
                 t.last_seen = timestamp
                 t.hits += 1
                 used.add(j)
@@ -76,6 +77,7 @@ class Tracker:
                 d.label,
                 timestamp,
                 timestamp,
+                box_size=d.box_size,
             )
             self.tracks[t.id] = t
             self.next_id += 1

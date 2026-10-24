@@ -151,5 +151,31 @@
     "fixture_sha256": "bd68f4faca7e64b7cc91e1292b7dcd78b52f1bc42d526236a88976011191a2c4",
     "regions": null,
     "purpose": "regression_test_only"
+  },
+  {
+    "fixture": "tests/fixtures/gameplay-no-return.png",
+    "source": "reports/preview-stream-now.png",
+    "source_sha256": "1441a486f83d6343b13208945589f67acc3814ca3b7db40eeda0f9fd8f319a98",
+    "fixture_sha256": "1441a486f83d6343b13208945589f67acc3814ca3b7db40eeda0f9fd8f319a98",
+    "regions": null,
+    "transform": null,
+    "purpose": "regression_test_only"
+  },
+  {
+    "fixture": "tests/fixtures/paused-no-return.png",
+    "source": "reports/preview-phone-now.png",
+    "source_sha256": "65fa621028d0d623fbc9267afb42afa2e9d581ad0fb03ec15e8be8066da35062",
+    "fixture_sha256": "3366a4c8d9e8e14918796e200eb2835a97da9020bf3cd0ab79ac5f51f1e967fb",
+    "regions": null,
+    "transform": "Resized from 2408x1080 to 960x430",
+    "purpose": "regression_test_only"
+  },
+  {
+    "fixture": "tests/fixtures/gameplay-hud-occluded.png",
+    "source": "reports/preview-page-unknown.png",
+    "source_sha256": "5a4692418a8a5e5da934297de759dbb1aa8c89f68b0ca71372cf64e79970d18b",
+    "fixture_sha256": "5a4692418a8a5e5da934297de759dbb1aa8c89f68b0ca71372cf64e79970d18b",
+    "regions": null,
+    "purpose": "regression_test_only"
   }
 ]
